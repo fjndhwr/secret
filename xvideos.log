@@ -393,3 +393,348 @@ Traceback (most recent call last):
     mkdir(name, mode)
 FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\仓殷禀阜\\xvideos\\03-最佳影片\\2018-09\\REAL VIRGIN TEEN GIRL LOSES HER VIRGINITY AND CRYING \\图片'
 
+[2020-05-16 22:25:07,464-xvideos_log-ERROR]:
+[Error in exception_handling] msg: invalid literal for int() with base 10: ''
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 129, in choice
+    best_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 48, in best_videos_pages
+    for page in range(int(n)):
+ValueError: invalid literal for int() with base 10: ''
+
+[2020-05-17 00:55:33,261-xvideos_log-ERROR]:
+[Error in exception_handling] msg: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 18, in download_videos_of_one_page
+    soup = BeautifulSoup(html, 'lxml')
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\site-packages\bs4\__init__.py", line 225, in __init__
+    raise FeatureNotFound(
+bs4.FeatureNotFound: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+
+[2020-05-17 23:22:27,401-xvideos_log-ERROR]:
+[Error in exception_handling] msg: list index out of range
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 131, in choice
+    tag_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 100, in tag_videos_pages
+    page2_url = tag_list[1]['href']
+IndexError: list index out of range
+
+[2020-05-17 23:23:48,173-xvideos_log-ERROR]:
+[Error in exception_handling] msg: list index out of range
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 131, in choice
+    tag_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 100, in tag_videos_pages
+    page2_url = tag_list[1]['href']
+IndexError: list index out of range
+
+[2020-05-17 23:26:49,651-xvideos_log-ERROR]:
+[Error in exception_handling] msg: list index out of range
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 131, in choice
+    tag_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 100, in tag_videos_pages
+    page2_url = tag_list[1]['href']
+IndexError: list index out of range
+
+[2020-05-17 23:30:34,597-xvideos_log-ERROR]:
+[Error in exception_handling] msg: list index out of range
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 131, in choice
+    tag_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 100, in tag_videos_pages
+    page2_url = tag_list[1]['href']
+IndexError: list index out of range
+
+[2020-05-19 00:05:51,545-xvideos_log-ERROR]:
+[Error in exception_handling] msg: 'NoneType' object has no attribute 'group'
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 319, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 228, in download_video
+    m3u8_url = re.search(r"html5player\.setVideoHLS\('(.*?)'\);", self.html).group(1)  # 总的m3u8链接
+AttributeError: 'NoneType' object has no attribute 'group'
+
+[2020-05-19 00:07:07,428-xvideos_log-ERROR]:
+[Error in exception_handling] msg: 'NoneType' object has no attribute 'group'
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 319, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 228, in download_video
+    m3u8_url = re.search(r"html5player\.setVideoHLS\('(.*?)'\);", self.html).group(1)  # 总的m3u8链接
+AttributeError: 'NoneType' object has no attribute 'group'
+
+[2020-05-19 00:10:10,456-xvideos_log-ERROR]:
+[Error in exception_handling] msg: 'NoneType' object has no attribute 'group'
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 319, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 228, in download_video
+    m3u8_url = re.search(r"html5player\.setVideoHLS\('(.*?)'\);", self.html).group(1)  # 总的m3u8链接
+AttributeError: 'NoneType' object has no attribute 'group'
+
+[2020-05-19 08:17:32,400-xvideos_log-ERROR]:
+[Error in exception_handling] msg: invalid literal for int() with base 10: "25'"
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 35, in search_videos_pages
+    for page in range(int(n)):
+ValueError: invalid literal for int() with base 10: "25'"
+
+[2020-05-19 13:44:46,477-xvideos_log-ERROR]:
+[Error in exception_handling] msg: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\cos\\LaxSexcom - Japanese nurses handjobLaxSexcom - Japanese nurses handjob.mp4'
+Traceback (most recent call last):
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 781, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 2] 系统找不到指定的文件。: 'd:/my/video/newVideo\\02-视频搜索\\cos\\LaxSexcom - Japanese nurses handjobLaxSexcom - Japanese nurses handjob.mp4' -> 'D:\\my\\Video\\newVideo\\listLaxSexcom - Japanese nurses handjob.mp4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 328, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 301, in download_video
+    shutil.move(self.dir_path + self.title + '.mp4', mp4_path + self.title + '.mp4')
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 795, in move
+    copy_function(src, real_dst)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 426, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 259, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\cos\\LaxSexcom - Japanese nurses handjobLaxSexcom - Japanese nurses handjob.mp4'
+
+[2020-05-19 13:58:26,013-xvideos_log-ERROR]:
+[Error in exception_handling] msg: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\cos\\HD-SDの康先生酒店約炮南航上海籍97年小空姐 絲襪制服／極品水嫩蘿莉唯美自慰視訊～02\\information.txt'
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 329, in download
+    self.write()
+  File "D:\myCode\xvideos\down_one.py", line 315, in write
+    with open(file_path, 'w', encoding='utf-8') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\cos\\HD-SDの康先生酒店約炮南航上海籍97年小空姐 絲襪制服／極品水嫩蘿莉唯美自慰視訊～02\\information.txt'
+
+[2020-05-19 14:02:40,575-xvideos_log-ERROR]:
+[Error in exception_handling] msg: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\COS\\Miku Hatsune Cosplay 008 download [httpsouoioYHjLzI] UncensoredMiku Hatsune Cosplay 008 download [httpsouoioYHjLzI] Uncensored.mp4'
+Traceback (most recent call last):
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 781, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 2] 系统找不到指定的文件。: 'd:/my/video/newVideo\\02-视频搜索\\COS\\Miku Hatsune Cosplay 008 download [httpsouoioYHjLzI] UncensoredMiku Hatsune Cosplay 008 download [httpsouoioYHjLzI] Uncensored.mp4' -> 'D:\\my\\Video\\newVideo\\list\\Miku Hatsune Cosplay 008 download [httpsouoioYHjLzI] UncensoredMiku Hatsune Cosplay 008 download [httpsouoioYHjLzI] Uncensored.mp4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 328, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 301, in download_video
+    shutil.move(self.dir_path + self.title + '.mp4', self.mp4_path)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 795, in move
+    copy_function(src, real_dst)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 426, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 259, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\COS\\Miku Hatsune Cosplay 008 download [httpsouoioYHjLzI] UncensoredMiku Hatsune Cosplay 008 download [httpsouoioYHjLzI] Uncensored.mp4'
+
+[2020-05-19 17:54:29,923-xvideos_log-ERROR]:
+[Error in exception_handling] msg: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\cos\\Miss Incredible BJ Who is She, Quien es ella , NAmeMiss Incredible BJ Who is She, Quien es ella , NAme.mp4'
+Traceback (most recent call last):
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 781, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 2] 系统找不到指定的文件。: 'd:/my/video/newVideo\\02-视频搜索\\cos\\Miss Incredible BJ Who is She, Quien es ella , NAmeMiss Incredible BJ Who is She, Quien es ella , NAme.mp4' -> 'D:\\my\\Video\\newVideo\\list\\Miss Incredible BJ Who is She, Quien es ella , NAmeMiss Incredible BJ Who is She, Quien es ella , NAme.mp4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 328, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 301, in download_video
+    shutil.move(self.dir_path + "/" + self.title + '.mp4', self.mp4_path)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 795, in move
+    copy_function(src, real_dst)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 426, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 259, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: 'd:/my/video/newVideo\\02-视频搜索\\cos\\Miss Incredible BJ Who is She, Quien es ella , NAmeMiss Incredible BJ Who is She, Quien es ella , NAme.mp4'
+
+[2020-05-19 20:03:52,334-xvideos_log-ERROR]:
+[Error in exception_handling] msg: Destination path 'D:\my\Video\newVideo\list\Lilcanadiangirl Pastel Girls [httpsouoiosLeNTk].mp4' already exists
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 328, in download
+    # self.write()
+  File "D:\myCode\xvideos\down_one.py", line 301, in download_video
+    with open('SAVED.txt', 'a+', encoding='utf-8') as f:
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 779, in move
+    raise Error("Destination path '%s' already exists" % real_dst)
+shutil.Error: Destination path 'D:\my\Video\newVideo\list\Lilcanadiangirl Pastel Girls [httpsouoiosLeNTk].mp4' already exists
+
+[2020-05-19 21:52:47,863-xvideos_log-ERROR]:
+[Error in exception_handling] msg: submit expected at least 1 positional argument, got 0
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 347, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 284, in download_video
+    self.pool.submit(target=self.thread_video1, kwargs={"ts_url": ts_url})
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 171, in submit
+    raise TypeError('submit expected at least 1 positional argument, '
+TypeError: submit expected at least 1 positional argument, got 0
+
+[2020-05-19 21:58:07,985-xvideos_log-ERROR]:
+[Error in exception_handling] msg: submit expected at least 1 positional argument, got 0
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 347, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 284, in download_video
+    self.pool.submit(target=self.thread_video1, kwargs={"ts_url": ts_url})
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 171, in submit
+    raise TypeError('submit expected at least 1 positional argument, '
+TypeError: submit expected at least 1 positional argument, got 0
+
+[2020-05-19 22:00:20,749-xvideos_log-ERROR]:
+[Error in exception_handling] msg: submit expected at least 1 positional argument, got 0
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 347, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 284, in download_video
+    self.pool.submit(target=self.thread_video1, kwargs={"son_ts_url": son_ts_url})
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\concurrent\futures\thread.py", line 171, in submit
+    raise TypeError('submit expected at least 1 positional argument, '
+TypeError: submit expected at least 1 positional argument, got 0
+
+[2020-05-19 22:01:20,818-xvideos_log-ERROR]:
+[Error in exception_handling] msg: invalid literal for int() with base 10: "25'"
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 35, in search_videos_pages
+    for page in range(int(n)):
+ValueError: invalid literal for int() with base 10: "25'"
+
+[2020-05-19 22:31:48,343-xvideos_log-ERROR]:
+[Error in exception_handling] msg: Destination path 'D:\my\Video\newVideo\list\縦型動画 003 ～アニメコスプレでフェラライブ～2.mp4' already exists
+Traceback (most recent call last):
+  File "D:\myCode\xvideos\exception_handling.py", line 23, in wrapper
+    fn(*args, **kwargs)
+  File "D:/myCode/xvideos/down_group.py", line 127, in choice
+    search_videos_pages()
+  File "D:/myCode/xvideos/down_group.py", line 41, in search_videos_pages
+    download_videos_of_one_page(url, os.path.join('02-视频搜索', search_key))
+  File "D:/myCode/xvideos/down_group.py", line 26, in download_videos_of_one_page
+    xvideos.download()
+  File "D:\myCode\xvideos\down_one.py", line 347, in download
+    self.download_video()
+  File "D:\myCode\xvideos\down_one.py", line 320, in download_video
+    shutil.move(self.dir_path + "/" + self.title + '.mp4', self.mp4_path)
+  File "C:\Users\hwr\AppData\Local\Programs\Python\Python38\lib\shutil.py", line 778, in move
+    if os.path.exists(real_dst):            raise Error("Destination path '%s' already exists" % real_dst)
+shutil.Error: Destination path 'D:\my\Video\newVideo\list\縦型動画 003 ～アニメコスプレでフェラライブ～2.mp4' already exists
+

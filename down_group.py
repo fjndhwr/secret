@@ -30,7 +30,7 @@ def download_videos_of_one_page(url='', page_type='01-单页下载'):    #page_t
 
 def search_videos_pages():    #视频搜索    #n=1表示默认只下载第一页的所有视频
     search_key = input('请输入搜索关键字：')
-    base_url = r'https://www.xvideos.com/?k=%s' % search_key
+    base_url = r'https://www.xvideos.com/?k=%s' % search_key + "&sort=relevance&quality=hd"
     n = input('请输入爬取页数：')
     for page in range(int(n)):
         if page != 0:

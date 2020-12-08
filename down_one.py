@@ -1,12 +1,11 @@
 import html
-import os
+import os,shutil
 import re
 import threading
 import time
-
 import requests
-
 import merge_ts_file
+from concurrent.futures import ThreadPoolExecutor
 
 
 class Xvideos:
@@ -15,10 +14,11 @@ class Xvideos:
         self.url = url
         self.video_num = -1
         # self.root_path = r'xvideos'    #默认根目录为本程序所在目录下的xvideos文件夹
-        self.root_path = u'文件'
-        self.num_thread = 10  # 默认线程
-        self.timeout = 10  # 超时时间设置
-        self.retry = 10  # 请求网页失败的最大重试次数
+        self.mp4_path = r'D:\my\Video\newVideo\list'
+        self.root_path = u'd:/my/video/newVideo'
+        self.num_thread = 36# 默认线程
+        self.timeout = 50  # 超时时间设置
+        self.retry = 100  # 请求网页失败的最大重试次数
         self.cover_num = -1
         self.count = 0
         self.html = ''
@@ -29,6 +29,9 @@ class Xvideos:
         self.pic_url_list = []
         self.ts_file_list = []
         self.final_fail_ts_file_list = []
+        self.pool = ThreadPoolExecutor(self.num_thread)
+        self.is_pool = True  # 是否是使用线程池
+        self.singal = threading.Event()
 
     def right_url(self):
         if re.search(r'https?://www.xvideos.com/video\d+', self.url):
@@ -55,14 +58,19 @@ class Xvideos:
         default_http_proxy = '127.0.0.1:1080' if os.name == 'nt' else '127.0.0.1:8118'
         http_proxy = os.getenv('http_proxy') or os.getenv('HTTP_PROXY') or default_http_proxy
         https_proxy = os.getenv('https_proxy') or os.getenv('HTTPS_PROXY') or default_http_proxy
-        proxies = { 'http': http_proxy, 'https': https_proxy }
+        proxies = {
+            'http': "http://127.0.0.1:1080",
+            'https': "https://127.0.0.1:1080",
+        }
 
         # if os.name == 'nt':  # windows
         #     proxies = {'http': '127.0.0.1:1080', 'https': '127.0.0.1:1080'}  # ssr的win客户端采用1080端口的http协议
         # elif os.name == 'posix':  # linux
         #     proxies = {'http': '127.0.0.1:10809',
         #                'https': '127.0.0.1:10809'}  # ssr+privoxy,通过privoxy将1080端口的socks协议转发给10809端口的http协议
-
+        headers ={
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.108 Safari/537.36',
+        }
         response = requests.get(url, timeout=self.timeout, proxies=proxies, headers=headers)
         return response.content
 
@@ -165,7 +173,7 @@ class Xvideos:
         self.count = 0
         if not os.path.exists(os.path.join(self.dir_path, '图片')):
             os.makedirs(os.path.join(self.dir_path, '图片'))
-        for i in range(8):  # 共32张图片，故开8线程，而不是沿用self.num_thread(因为担心不是整除32的，速度慢)
+        for i in range(16):  # 共32张图片，故开8线程，而不是沿用self.num_thread(因为担心不是整除32的，速度慢)
             t = threading.Thread(target=self.thread_image, kwargs={'part_n': i})
             t.setDaemon(True)  # 设置守护进程
             t.start()
@@ -193,7 +201,10 @@ class Xvideos:
         if ts_name in os.listdir(self.dir_path):
             self.count += 1
             self.ts_file_list.append(ts_name)
-            print("\r视频进度：%.2f%%" % (self.count / self.ts_num * 100), end=' ')
+            present = self.count / self.ts_num * 100
+            print("时间：", time.localtime(time.time()))
+            print("\r视频进度：%.2f%%" % present, end=' ')
+            return present
         else:
             ts_file = self.repeat_request(ts_url, headers={'Connection': 'close'},
                                           fail_hint='"' + ts_name + ' fail and retry ' + '%d"%retry_times',
@@ -205,7 +216,9 @@ class Xvideos:
                     f.flush()
                 self.count += 1
                 self.ts_file_list.append(ts_name)
-                print("\r视频进度：%.2f%%" % (self.count / self.ts_num * 100), end=' ')
+                present = self.count / self.ts_num * 100
+                print("\r视频进度：%.2f%%" % present, end=' ')
+                return present
             else:
                 with open('ERROR.txt', 'a+', encoding='utf-8') as f:
                     f.write("{'%s': '%s'}\n" % (ts_url, self.dir_path))
@@ -219,8 +232,20 @@ class Xvideos:
                 self.video_success = False
                 raise
 
+    def thread_video1(self, son_ts_url):
+        try:
+            present = self.download_ts_file(son_ts_url)
+            if present == 100.00:
+                self.singal.set()
+        except:
+            self.video_success = False
+            raise
+
     def download_video(self):  # 结构为：获取ts链接，多线程爬取，合并
-        m3u8_url = re.search(r"html5player\.setVideoHLS\('(.*?)'\);", self.html).group(1)  # 总的m3u8链接
+        result = re.search(r"html5player\.setVideoHLS\('(.*?)'\);", self.html)
+        if result is None:
+            return
+        m3u8_url = result.group(1)  # 总的m3u8链接
         m3u8_content = self.repeat_request(m3u8_url, fail_hint="'get m3u8 fail and retry %d'%retry_times",
                                            final_fail_hint='get m3u8 fail! Exit!')  # 内含不同的清晰度所对应的m3u8链接
         if m3u8_content:
@@ -237,6 +262,9 @@ class Xvideos:
                                                               fail_hint="'get max_definition_m3u8 fail and retry %d'%retry_times",
                                                               final_fail_hint='get max_definition_m3u8 final fail! Exit!')  # 内含该m3u8视频的ts文件信息
             if max_definition_m3u8_content:
+                with open('downloadUrl.txt', 'a+', encoding='utf-8') as f:
+                    f.write(str(self.title) + "," + str(max_definition_m3u8_url) + '\n')
+
                 max_definition_m3u8_content = max_definition_m3u8_content.decode('utf-8')
                 self.ts_url_list = []
                 for line in max_definition_m3u8_content.split('\n'):
@@ -252,25 +280,35 @@ class Xvideos:
                 请求内容，拿到诸多ts文件链接(相对链接)
                 再拼接
                 '''
-                if self.ts_num < self.num_thread:
-                    self.num_thread = self.ts_num  # 线程数若大于ts文件数，则线程数减少到ts文件数
-                part = self.ts_num // self.num_thread  # 分块。如果不能整除，最后一块应该多几个字节
-                thread_list = []
-                self.count = 0
-                for i in range(self.num_thread):
-                    start = part * i  # 第part个线程的起始url下标
-                    if i == self.num_thread - 1:  # 最后一块
-                        end = self.ts_num  # 第part个线程的终止url下标
-                    else:
-                        end = start + part  # 第part个线程的终止url下标
-                    t = threading.Thread(target=self.thread_video, kwargs={'start': start, 'end': end, 'part': part})
-                    t.setDaemon(
-                        True)  # 设置守护进程；必须在start()之前设置；如果为True则主程序不用等此线程结束后再结束主程序；当我们使用setDaemon(True)方法，设置子线程为守护线程时，主线程一旦执行结束，则全部线程全部被终止执行，可能出现的情况就是，子线程的任务还没有完全执行结束，就被迫停止
-                    t.start()
-                    thread_list.append(t)
-                    # 等待所有线程下载完成
-                for t in thread_list:
-                    t.join()  # 阻塞主进程，进行完所有线程后再运行主进程
+                if self.is_pool:
+                    for son_ts_url in self.ts_url_list:
+                        self.pool.submit(self.thread_video1, son_ts_url)
+                    self.singal.wait()
+                else:
+                    if self.ts_num < self.num_thread:
+                        self.num_thread = self.ts_num  # 线程数若大于ts文件数，则线程数减少到ts文件数
+                    part = self.ts_num // self.num_thread  # 分块。如果不能整除，最后一块应该多几个字节
+                    part_num = self.ts_num % self.num_thread
+                    thread_list = []
+                    self.count = 0
+                    end = 0
+                    for i in range(self.num_thread):
+                        start = end  # 第part个线程的起始url下标
+                        if part_num > i:
+                            end = start + part + 1
+                        else:
+                            end = start + part
+                        # if i == self.num_thread - 1:  # 最后一块
+                        #     end = self.ts_num  # 第part个线程的终止url下标
+                        # else:
+                        #     end = start + part  # 第part个线程的终止url下标
+                        t = threading.Thread(target=self.thread_video, kwargs={'start': start, 'end': end, 'part': part})
+                        t.setDaemon(True)  # 设置守护进程；必须在start()之前设置；如果为True则主程序不用等此线程结束后再结束主程序；当我们使用setDaemon(True)方法，设置子线程为守护线程时，主线程一旦执行结束，则全部线程全部被终止执行，可能出现的情况就是，子线程的任务还没有完全执行结束，就被迫停止
+                        t.start()
+                        thread_list.append(t)
+                        # 等待所有线程下载完成
+                    for t in thread_list:
+                        t.join()  # 阻塞主进程，进行完所有线程后再运行主进程
 
                 if self.video_success:
                     merge_ts_file.merge(self.ts_file_list, self.dir_path, self.title + '.mp4')
@@ -280,6 +318,10 @@ class Xvideos:
                         ('av.mp4' in os.listdir(self.dir_path) and  # av.mp4是路径过长而无法改名导致的
                          os.path.getsize(os.path.join(self.dir_path, 'av.mp4')) > 0)):
                     print('\n%s 合并成功\n' % self.title)  # 视频下载完成就算任务完成，图片和预览视频允许失败
+                    try:
+                        shutil.move(self.dir_path + "/" + self.title + '.mp4', self.mp4_path)
+                    except:
+                        print(self.title, "error")
                     with open('SAVED.txt', 'a+', encoding='utf-8') as f:
                         f.write(str(self.video_num) + '\n')
                 else:
@@ -304,16 +346,17 @@ class Xvideos:
             if self.html:
                 self.html = self.html.decode('utf-8')
                 if self.mkdir():
-                    self.download_image()
-                    self.download_preview_video()
+                    # self.download_image()
+                    # self.download_preview_video()
                     self.download_video()
-                    self.write()
+                    # self.write()
                     return True
 
 
 if __name__ == '__main__':
-    # url = input('请输入网址：\n')
-    url = 'https://www.xvideos.com/video35904115/who_is_this_girl_'
+    url = input('请输入网址：\n')
+    # url = 'https://www.xvideos.com/video35904115/who_is_this_girl_'
+    # url = 'https://www.xvideos.com/video10852081/sex_goddess_teenie_banged_hard' #测试地址
     start = time.perf_counter()
     xvideos = Xvideos(url)
     xvideos.download()

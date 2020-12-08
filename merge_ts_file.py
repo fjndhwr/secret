@@ -12,7 +12,7 @@ def cmp(a,b):
 
 def merge_less_100(ts_file_list, dir_path, name):
     
-    ffmpeg_path = r'C:\CS\ffmpeg\bin\ffmpeg.exe'    #ffmpeg绝对路径
+    ffmpeg_path = os.path.abspath('.') + r'\m3u8\ffmpeg.exe'    #ffmpeg绝对路径
     win_merge = 2             #windows下合并ts视频的方式，1为copy/b，2为ffmpeg
 
     if os.name == 'nt':    #windows
@@ -81,7 +81,7 @@ def merge_less_100(ts_file_list, dir_path, name):
 
 def merge(ts_file_list, dir_path, name):
     if os.name == 'nt':
-        if len(ts_file_list)<=100:
+        if len(ts_file_list) <= 100:
             merge_less_100(ts_file_list, dir_path, name)
         else:
             ts_file_list = sorted(ts_file_list,key=functools.cmp_to_key(cmp))
